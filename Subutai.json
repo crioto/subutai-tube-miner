@@ -54,7 +54,7 @@
       "environmentName": {
         "description": "Enter the environment name",
         "type": "string",
-        "default": "monero",
+        "default": "tubeminer",
         "validation": "[a-zA-Z0-9]+"
       },
       "containerSize": {
