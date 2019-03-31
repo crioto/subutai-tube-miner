@@ -1,0 +1,10 @@
+[Unit]
+Description=TUBE Miner on Subutai
+
+[Service]
+Type=simple
+ExecStart=/opt/tubeminer/xmrig --algo={{ algo }} --url={{ miningServer }} --user={{ username }} --pass={{ workerName }} --variant tube -k
+WorkingDirectory=/opt/tubeminer
+
+[Install]
+WantedBy=multi-user.target

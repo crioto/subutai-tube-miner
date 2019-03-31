@@ -1,0 +1,41 @@
+---
+
+- hosts: tubeminer
+  remote_user: root
+  tasks:
+    - name: Upgrade OS
+      apt:
+        update_cache: true
+        upgrade: true
+    - name: Install dependencies
+      apt: 
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - ca-certificates
+    - name: Create miner directory
+      file:
+        path: /opt/tubeminer
+        state: directory
+    - name: Download xmrig
+      get_url:
+        url: https://github.com/xmrig/xmrig/releases/download/v2.14.1/xmrig-2.14.1-xenial-x64.tar.gz
+        dest: /opt/tubeminer/xmrig.tar.gz
+        mode: 0644
+    - name: Extract miner
+      unarchive:
+        remote_src: yes
+        src: /opt/tubeminer/xmrig.tar.gz
+        dest: /opt/tubeminer/
+        extra_opts: [--strip-components=1]
+    - name: Create service file
+      template:
+        src: templates/tubeminer.service
+        dest: /etc/systemd/system/tubeminer.service
+        mode: 0644
+    - name: Enable and start service
+      systemd:
+        name: tubeminer
+        state: started
+        enabled: true
+        masked: no

@@ -1,0 +1,89 @@
+{
+    "name": "${environmentName}",
+    "description": "TUBE Miner",
+    "version": "1.0.0",
+    "author": "https://github.com/crioto",
+    "containers": [
+      {
+        "hostname": "tubeminer",
+        "template": "debian-stretch",
+        "peer-criteria": "HTTP-GROUP",
+        "size": "${containerSize}"
+      }
+    ],
+    "peer-criteria": [
+      {
+        "name": "HTTP-GROUP"
+      }
+    ],
+    "ansible-configuration": {
+      "source-url": "https://github.com/crioto/subutai-tube-miner/archive/master.zip",
+      "ansible-playbook": "playbook.yaml",
+      "extra-vars": [
+        {
+          "key": "environmentName",
+          "value": "${environmentName}"
+        },
+        {
+          "key": "algo",
+          "value": "${algo}"
+        },
+        {
+          "key": "miningServer",
+          "value": "${miningServer}"
+        },
+        {
+          "key": "username",
+          "value": "${username}"
+        },
+        {
+          "key": "workerName",
+          "value": "${workerName}"
+        }
+      ],
+      "groups": [
+        {
+          "name": "tubeminer",
+          "hostnames": [
+            "tubeminer"
+          ]
+        }
+      ]
+    },
+    "user-variables": {
+      "environmentName": {
+        "description": "Enter the environment name",
+        "type": "string",
+        "default": "monero",
+        "validation": "[a-zA-Z0-9]+"
+      },
+      "containerSize": {
+        "description": "Container Size",
+        "type": "enum",
+        "default": "TINY",
+        "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
+      },
+      "algo": {
+        "description": "Algorithm",
+        "type": "enum",
+        "default": "cryptonight",
+        "validation": "cryptonight,cryptonight-lite,cryptonight-heavy"
+      },
+      "miningServer": {
+        "description": "URL of the mining server",
+        "type": "string",
+        "default": ""
+      },
+      "username": {
+        "description": "Public address of your wallet", 
+        "type": "string",
+        "default": "enteryourwallet!"
+      },
+      "workerName": {
+        "description": "workerName",
+        "type": "string",
+        "default": "subutaiworker",
+        "validation": "[a-zA-Z0-9]+"
+      }
+    }
+  }
