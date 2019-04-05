@@ -26,7 +26,7 @@
         },
         {
           "key": "algo",
-          "value": "${algo}"
+          "value": "cryptonight-heavy"
         },
         {
           "key": "miningServer",
@@ -62,12 +62,6 @@
         "type": "enum",
         "default": "TINY",
         "validation": "TINY,SMALL,MEDIUM,LARGE,HUGE"
-      },
-      "algo": {
-        "description": "Algorithm",
-        "type": "enum",
-        "default": "cryptonight",
-        "validation": "cryptonight,cryptonight-lite,cryptonight-heavy"
       },
       "miningServer": {
         "description": "URL of the mining server",
